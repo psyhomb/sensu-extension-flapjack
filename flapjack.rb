@@ -80,14 +80,14 @@ module Sensu
           @redis.on_error do |_error|
             @logger.warn('Flapjack Redis instance not available on ' + options[:host])
           end
-          @redis.before_reconnect do
-            @logger.warn("reconnecting to redis")
-            pause
-          end
-          @redis.after_reconnect do
-            @logger.info("reconnected to redis")
-            resume
-          end
+          # @redis.before_reconnect do
+          #   @logger.warn("reconnecting to redis")
+          #   pause
+          # end
+          # @redis.after_reconnect do
+          #   @logger.info("reconnected to redis")
+          #   resume
+          # end
           yield(@redis) if block_given?
         end
       end
