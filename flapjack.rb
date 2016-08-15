@@ -100,7 +100,7 @@ module Sensu
         enabled = @options[:enabled]
 
         if not enabled
-          yield 'flapjack handler has been DISABLED, check configuration file and re-enable it by setting "enabled": true', 0
+          yield 'flapjack extension has been DISABLED, check configuration file and re-enable it by setting "enabled": true', 0
           return
         end
 
