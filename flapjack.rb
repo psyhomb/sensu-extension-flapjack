@@ -33,6 +33,21 @@
 #   }
 # }
 #
+# How to disable Flapjack extension on check level:
+#
+# {
+#   "checks": {
+#     "check_disk_usage": {
+#       "command": "check-disk-usage.rb",
+#       "subscribers": [
+#         "test"
+#       ],
+#       "interval": 60,
+#       "flapjack_enabled": false
+#     }
+#   }
+# }
+#
 # Copyright 2014 Jive Software and contributors.
 #
 # Released under the same terms as Sensu (the MIT license); see LICENSE for details.
@@ -98,9 +113,19 @@ module Sensu
 
         flapjack_version = @options[:flapjack_version]
         enabled = @options[:enabled]
+        check_enabled = if check[:flapjack_enabled].nil?
+                          true
+                        elsif [true, false].include? check[:flapjack_enabled]
+                          check[:flapjack_enabled]
+                        else
+                          true
+                        end
 
         if not enabled
-          yield 'flapjack extension has been DISABLED, check configuration file and re-enable it by setting "enabled": true', 0
+          yield 'flapjack extension has been globally DISABLED', 0
+          return
+        elsif not check_enabled
+          yield 'flapjack extension has been DISABLED for check #{client[:name]}:#{check[:name]}', 0
           return
         end
 
