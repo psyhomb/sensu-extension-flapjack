@@ -44,6 +44,8 @@
 #       ],
 #       "interval": 60,
 #       "output_type": "nagios",
+#       "initial_failure_delay": 300,
+#       "repeat_failure_delay": 300,
 #       "flapjack_enabled": false
 #     }
 #   }
