@@ -43,6 +43,7 @@
 #         "test"
 #       ],
 #       "interval": 60,
+#       "output_type": "nagios",
 #       "flapjack_enabled": false
 #     }
 #   }
