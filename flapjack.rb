@@ -16,6 +16,8 @@
 #      "host": "localhost",
 #      "port": 6379,
 #      "db": "0",
+#      "initial_failure_delay": 30,
+#      "repeat_failure_delay": 60,
 #      "flapjack_version": 1,
 #      "enabled": true
 #   }
@@ -28,6 +30,8 @@
 #      "host": "localhost",
 #      "port": 6379,
 #      "db": "0",
+#      "initial_failure_delay": 30,
+#      "repeat_failure_delay": 60,
 #      "flapjack_version": 2,
 #      "enabled": true
 #   }
@@ -75,6 +79,8 @@ module Sensu
           port: 6379,
           channel: 'events',
           db: 0,
+          initial_failure_delay: 30,
+          repeat_failure_delay: 60,
           flapjack_version: 1,
           enabled: true
         }
@@ -114,8 +120,11 @@ module Sensu
         client = event[:client]
         check = event[:check]
 
+        initial_failure_delay = @options[:initial_failure_delay]
+        repeat_failure_delay = @options[:repeat_failure_delay]
         flapjack_version = @options[:flapjack_version]
         enabled = @options[:enabled]
+
         check_enabled = if check[:flapjack_enabled].nil?
                           true
                         elsif [true, false].include? check[:flapjack_enabled]
@@ -167,12 +176,12 @@ module Sensu
           summary: check[:notification] || check[:output],
           details: details.join(' '),
           time: check[:executed],
-          tags: tags,
-          initial_failure_delay: 300,
-          repeat_failure_delay: 300
+          tags: tags
         }
 
         flapjack_event[:perfdata] = check[:perfdata] if check[:perfdata]
+        flapjack_event[:initial_failure_delay] = initial_failure_delay
+        flapjack_event[:repeat_failure_delay] = repeat_failure_delay
         flapjack_event[:initial_failure_delay] = check[:initial_failure_delay] if check[:initial_failure_delay]
         flapjack_event[:repeat_failure_delay] = check[:repeat_failure_delay] if check[:repeat_failure_delay]
 
