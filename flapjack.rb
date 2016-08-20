@@ -157,9 +157,7 @@ module Sensu
         flapjack_version = @options[:flapjack_version]
         enabled = @options[:enabled]
 
-        check_enabled = if check[:flapjack_enabled].nil?
-                          true
-                        elsif [true, false].include? check[:flapjack_enabled]
+        check_enabled = if [true, false].include? check[:flapjack_enabled]
                           check[:flapjack_enabled]
                         else
                           true
