@@ -37,7 +37,39 @@
 #   }
 # }
 #
-# How to disable Flapjack extension on check level:
+# Starting from version 0.23 Sensu services can now be configured to query one or more instances of Redis Sentinel for a Redis master,
+# and cause we're requiring the same 'sensu/redis' gem for Flapjack extension, we can use this feature here as well.
+# You can find more information here:
+#   https://sensuapp.org/docs/latest/reference/redis.html#configuring-sensu-for-redis-sentinel
+#   https://github.com/sensu/sensu/blob/master/CHANGELOG.md
+#
+# {
+#   "flapjack": {
+#     "master": "mymaster",
+#     "db": 0,
+#     "auto_reconnect": true,
+#     "sentinels": [
+#       {
+#         "host": "1.1.1.1",
+#         "port": 26379
+#       },
+#       {
+#         "host": "1.1.1.2",
+#         "port": 26379
+#       },
+#       {
+#         "host": "1.1.1.3",
+#         "port": 26379
+#       }
+#     ],
+#     "initial_failure_delay": 30,
+#     "repeat_failure_delay": 60,
+#     "flapjack_version": 1,
+#     "enabled": true
+#   }
+# }
+#
+# How to configure some of the Flapjack attributes on the check level (check level has precedence over global configuration):
 #
 # {
 #   "checks": {
