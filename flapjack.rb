@@ -39,7 +39,7 @@
 #
 # Starting from version 0.23 Sensu services can now be configured to query one or more instances of Redis Sentinel for a Redis master,
 # and cause we're requiring the same 'sensu/redis' gem for Flapjack extension, we can use this feature here as well.
-# You can find more information here:
+# More info here:
 #   https://sensuapp.org/docs/latest/reference/redis.html#configuring-sensu-for-redis-sentinel
 #   https://github.com/sensu/sensu/blob/master/CHANGELOG.md
 #
